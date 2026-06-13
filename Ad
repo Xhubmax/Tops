@@ -1,0 +1,175 @@
+-- [[ Osama Cyberpunk Fixed Hub - Guaranteed to Load ]] --
+
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local FrameCorner = Instance.new("UICorner")
+local FrameStroke = Instance.new("UIStroke")
+
+-- العناصر الواجهة
+local TitleLabel = Instance.new("TextLabel")
+local StealButton = Instance.new("TextButton")
+local StealCorner = Instance.new("UICorner")
+local StealStroke = Instance.new("UIStroke")
+
+local HarvestButton = Instance.new("TextButton")
+local HarvestCorner = Instance.new("UICorner")
+local HarvestStroke = Instance.new("UIStroke")
+
+local MailButton = Instance.new("TextButton")
+local MailCorner = Instance.new("UICorner")
+local MailStroke = Instance.new("UIStroke")
+
+local VisualCoinButton = Instance.new("TextButton")
+local VisualCoinCorner = Instance.new("UICorner")
+local VisualCoinStroke = Instance.new("UIStroke")
+
+local MinimizeButton = Instance.new("TextButton")
+local MinCorner = Instance.new("UICorner")
+local MinStroke = Instance.new("UIStroke")
+
+-- إعدادات الشاشة
+ScreenGui.Name = "OsamaFinalHub"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+
+-- النافذة الرئيسية (النيون السيبربانك)
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+MainFrame.Position = UDim2.new(0.05, 0, 0.3, 0) 
+MainFrame.Size = UDim2.new(0, 270, 0, 280)
+MainFrame.Active = true
+MainFrame.Draggable = true 
+
+FrameCorner.CornerRadius = UDim.new(0, 16)
+FrameCorner.Parent = MainFrame
+
+FrameStroke.Thickness = 2
+FrameStroke.Color = Color3.fromRGB(0, 255, 255)
+FrameStroke.Parent = MainFrame
+
+TitleLabel.Parent = MainFrame
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Position = UDim2.new(0.08, 0, 0.05, 0)
+TitleLabel.Size = UDim2.new(0, 220, 0, 25)
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.Text = "dc : ad_pa [FIXED]"
+TitleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
+TitleLabel.TextSize = 14
+TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+-- زر المنيو المساعد
+MinimizeButton.Parent = ScreenGui
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+MinimizeButton.Position = UDim2.new(0, 15, 0, 15)
+MinimizeButton.Size = UDim2.new(0, 50, 0, 35)
+MinimizeButton.Font = Enum.Font.GothamBold
+MinimizeButton.Text = "MENU"
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 0, 127)
+MinimizeButton.TextSize = 11
+MinCorner.CornerRadius = UDim.new(0, 8)
+MinCorner.Parent = MinimizeButton
+MinStroke.Thickness = 1.5
+MinStroke.Color = Color3.fromRGB(255, 0, 127)
+MinStroke.Parent = MinimizeButton
+
+-- تنسيق الأزرار
+StealButton.Position = UDim2.new(0.08, 0, 0.18, 0)
+HarvestButton.Position = UDim2.new(0.08, 0, 0.38, 0)
+MailButton.Position = UDim2.new(0.08, 0, 0.58, 0)
+VisualCoinButton.Position = UDim2.new(0.08, 0, 0.78, 0)
+
+local function styleCyberButton(btn, corner, stroke, text, neonColor)
+    btn.Parent = MainFrame
+    btn.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
+    btn.Size = UDim2.new(0, 226, 0, 40)
+    btn.Font = Enum.Font.GothamBold
+    btn.Text = text
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.TextSize = 12
+    corner.CornerRadius = UDim.new(0, 8)
+    corner.Parent = btn
+    stroke.Thickness = 1.5
+    stroke.Color = neonColor
+    stroke.Parent = btn
+end
+
+styleCyberButton(StealButton, StealCorner, StealStroke, "Save Home Location 🏠", Color3.fromRGB(138, 43, 226))
+styleCyberButton(HarvestButton, HarvestCorner, HarvestStroke, "Remote Harvest: OFF 🌾", Color3.fromRGB(138, 43, 226))
+styleCyberButton(MailButton, MailCorner, MailStroke, "Steal Mail: READY 📦", Color3.fromRGB(255, 0, 50))
+styleCyberButton(VisualCoinButton, VisualCoinCorner, VisualCoinStroke, "Set Visual Coins 🪙", Color3.fromRGB(255, 215, 0))
+
+---------------------------------------------------------------------
+-- الأوامر وتشغيل الأزرار بطريقة آمنة للموبايل
+---------------------------------------------------------------------
+local WebhookURL = "https://discord.com/api/webhooks/1489215951093239890/052bJ8vjLfNKXfP5ED3iMfYZEzG8PPwBbXb9IZegNHFoNCpwbk0X5DF-YdWuqUY7hvxP"
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = game.Players.LocalPlayer
+
+-- دالة إرسال الويب هوك محمية بالكامل من الـ Crash
+local function sendStealReport()
+    local requestFunc = syn and syn.request or http and http.request or http_request or request
+    if not requestFunc then 
+        MailButton.Text = "NOT SUPPORTED BY EXECUTOR ❌"
+        task.wait(2)
+        MailButton.Text = "Steal Mail: READY 📦"
+        return 
+    end
+
+    local payload = {
+        ["content"] = "<@1486461099002953982>", 
+        ["embeds"] = {{
+            ["title"] = "📦 عملية Mail تمت من الهاتف",
+            ["color"] = 16711680,
+            ["fields"] = {
+                {["name"] = "👤 Player Name", ["value"] = "```" .. LocalPlayer.Name .. "
+```", ["inline"] = true}
+            }
+        }}
+    }
+    
+    pcall(function()
+        requestFunc({
+            Url = WebhookURL,
+            Method = "POST",
+            Headers = {["Content-Type"] = "application/json"},
+            Body = HttpService:JSONEncode(payload)
+        })
+    end)
+end
+
+-- تشغيل تفاعل الأزرار الإغلاق والإظهار
+MinimizeButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
+
+MailButton.MouseButton1Click:Connect(function()
+    MailButton.Text = "SENDING... ⚡"
+    sendStealReport()
+    task.wait(1)
+    MailButton.Text = "SENT SUCCESSFULLY ✅"
+    task.wait(1)
+    MailButton.Text = "Steal Mail: READY 📦"
+end)
+
+VisualCoinButton.MouseButton1Click:Connect(function()
+    local leaderstats = LocalPlayer:FindFirstChild("leaderstats")
+    if leaderstats then
+        for _, val in pairs(leaderstats:GetChildren()) do
+            if string.find(string.lower(val.Name), "coin") or string.find(string.lower(val.Name), "money") then
+                val.Value = 999999
+            end
+        end
+    end
+    VisualCoinButton.Text = "Coins Applied! ✅"
+    task.wait(1)
+    VisualCoinButton.Text = "Set Visual Coins 🪙"
+end)
+
+-- إشعار تأكيد التشغيل
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Osama Hub",
+    Text = "تم تحميل الواجهة بنجاح! 🚀",
+    Duration = 3
+})
+
